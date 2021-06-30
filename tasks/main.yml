@@ -1,0 +1,24 @@
+---
+- name: install depends first
+  apt: name=python-apt state=present update_cache=yes
+
+- name: install fish repo
+  apt_repository:
+    repo="ppa:fish-shell/release-3"
+    state=present
+    update_cache=yes
+  when:
+  - ansible_distribution == "Ubuntu"
+  - ansible_distribution_major_version | int < 20
+
+- name: install fish
+  apt: name=fish state=present
+
+- name: install fisher
+  shell: |
+    /usr/bin/fish -c \
+    "curl -sL https://git.io/fisher | source \
+    && fisher install jorgebucaran/fisher"
+
+- name: install bass
+  command: /usr/bin/fish -c 'fisher eds/bass paths'
