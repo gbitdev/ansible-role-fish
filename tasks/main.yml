@@ -24,4 +24,4 @@
     && fisher install jorgebucaran/fisher"
 
 - name: install bass
-  command: /usr/bin/fish -c 'fisher eds/bass paths'
+  command: /usr/bin/fish -c 'fisher install eds/bass paths'
