@@ -1,23 +1,43 @@
 ---
-- name: install depends first
+- name: Gather Facts
+  setup:
+  
+- name: PreInstall
   become: yes
-  apt: name=python-apt state=present update_cache=yes
+  command: apt update
 
-- name: install fish repo
+- name: Install depends first
+  become: yes
+  apt: 
+    name: python-apt 
+    state: present 
+    update_cache: no
+    install_recommends: no
+  ignore_errors: yes
+
+- name: Install fish repo
   become: yes
   apt_repository:
-    repo="ppa:fish-shell/release-3"
-    state=present
-    update_cache=yes
+    repo: "ppa:fish-shell/release-3"
+    state: present
+    update_cache: no
   when:
   - ansible_distribution == "Ubuntu"
   - ansible_distribution_major_version | int < 20
 
-- name: install fish
+# Workaround ?
+- name: Update cache
   become: yes
-  apt: name=fish state=present
+  command: apt update
 
-- name: install fisher
+- name: Install fish
+  become: yes
+  apt: 
+    name: fish=3.* 
+    state: present
+    install_recommends: no
+
+- name: Install fisher
   shell: |
     /usr/bin/fish -c \
     "curl -sL https://git.io/fisher | source \
@@ -25,3 +45,4 @@
 
 - name: install bass
   command: /usr/bin/fish -c 'fisher install edc/bass'
+  creates: ~/.config/fish/functions/bass.fish

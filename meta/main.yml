@@ -1,7 +1,8 @@
 galaxy_info:
+  role_name: fish
   author: Marcin Gontarek
   description: Install fish shell and fisher plugin manager
-
+  company: ""
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
@@ -15,7 +16,7 @@ galaxy_info:
   # - CC-BY-4.0
   license: license (GPL-2.0-or-later, MIT, etc)
 
-  min_ansible_version: 2.9
+  min_ansible_version: "2.9"
 
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:
@@ -29,7 +30,7 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - all
+    - any
   # platforms:
   # - name: Fedora
   #   versions:
